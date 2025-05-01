@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movistar - Áreas Disponibles</title>
+  <link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="bar">
+      <a href="#">Móvil</a>
+      <a href="#">Hogar</a>
+      <a href="#">Contáctanos</a>
+      </div>
+    </div>
+    <div class="logo-bar">
+      <img src="imagen/logo-movistar.svg" class="logo">
+      <nav class="ber">
+        <a href="index.html">Area Móvil</a>
+        <a href="#">Area Hogar</a>
+      </nav>
+    </div>
+  </header>
+  <div class="contenedor">
+    <h1>Validación de datos</h1>
+
+    <form id="formCliente">
+      <div class="fila">
+        <div class="campo">
+          <label for="dni">Numero de DNI:</label>
+          <input type="text" id="dni" name="dni" maxlength="8" required>
+        </div>
+        <div class="campo">
+          <label for="celular">Número De Celular:</label>
+          <input type="text" id="celular" name ="celular"  maxlength="9" required>
+        </div>
+      </div>
+
+      <div class="fila">
+        <div class="campo">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div class="campo">
+          <label for="apellidos">Apellido:</label>
+          <input type="text" id="apellido" name="apellido" required>
+        </div>
+      </div>
+
+      <div class="fila">
+        <div class="campo full">
+          <label for="nacimiento">Fecha de nacimiento (DD/MM/AAAA):</label>
+          <input type="text" id="nacimiento" name="nacimiento" placeholder="DD/MM/AAAA" required>
+        </div>
+      </div>
+
+      <div class="fila">
+        <div class="campo">
+          <label for="departamento">Departamento:</label>
+          <select id="departamento" name="departamento" required>
+            <option value="">Seleccione</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="distrito">Distrito:</label>
+          <select id="distrito" name="distrito" required>
+            <option value="">Seleccione</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fila">
+        <div class="campo full">
+          <label for="observaciones">Observaciones:</label>
+          <textarea id="observaciones" name="observaciones" rows="4" placeholder="Observaciones del cliente..."></textarea>
+        </div>
+      </div>
+
+      <div class="fila derecha">
+        <button type="submit" class="btn-agendar">Agendar Llamada</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('formCliente');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      const response = await fetch('/submit',{
+        method: 'POST',
+        headers:{'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      })
+      if(response.ok){
+        alert("Formulario enviado correctamente");
+        form.reset();
+      } else{
+        alert("Error al enviar");
+      }
+    })
+  </script>
+
+  <script src="scri.js"></script>
+
+  <footer>
+    <div class="footer-links">
+      <a href="#">Términos y Condiciones</a>
+    </div>
+    <div class="footer-info">
+      <img src="imagen/Telefonica-logo.png" class="logo2">
+      <div class="info">
+        <a href="#">Política de privacidad</a> | <a href="#">Aviso Legal</a>
+      </div>
+      <div class="telefono">Llámanos al <br>
+      <strong>(01) 701-2095</strong></div>
+    </div>
+  </footer>
+</body>
+</html>
