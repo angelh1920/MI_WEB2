@@ -1,19 +1,14 @@
 const express =require("express");
 const mongoose = require('mongoose');
 const Persona = require('./models/Persona');
-const bodyParser = require("body-parser");
 const app = express ();
 
 app.use(express.static('public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.json());
 
 
 const MONFGO_URI = 'mongodb+srv://admin:luishancco19@cluster0.bzkakdz.mongodb.net/certus?retryWrites=true&w=majority&appName=Cluster0'
-mongoose.connect(MONFGO_URI,{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(()=>{
+mongoose.connect(MONFGO_URI).then(()=>{
     console.log("se conecto correctamente a la base de datos ..");
 }).catch((err)=>{   
     console.log("Error encontrado" + err);
